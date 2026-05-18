@@ -6,8 +6,22 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		345D6DA22FB8AEEE003C72DA /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 345D6DA12FB8AEEE003C72DA /* RiveRuntime */; };
+		34F0FF642FB9B5090003F6F2 /* RaisedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F0FF632FB9B5090003F6F2 /* RaisedButton.swift */; };
+		34F0FF662FB9B50A0003F6F2 /* SpeechBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F0FF652FB9B50A0003F6F2 /* SpeechBubble.swift */; };
+		34F0FF682FB9B50B0003F6F2 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F0FF672FB9B50B0003F6F2 /* ProgressBar.swift */; };
+		34F0FF6A2FB9C6780003F6F2 /* ExperienceLevelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F0FF692FB9C6780003F6F2 /* ExperienceLevelPicker.swift */; };
+		34F0FF762FBA05D30003F6F2 /* RoutinePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F0FF752FBA05D30003F6F2 /* RoutinePicker.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		345D6D922FB8AE85003C72DA /* BubblesMascot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubblesMascot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		34F0FF632FB9B5090003F6F2 /* RaisedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaisedButton.swift; sourceTree = "<group>"; };
+		34F0FF652FB9B50A0003F6F2 /* SpeechBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechBubble.swift; sourceTree = "<group>"; };
+		34F0FF672FB9B50B0003F6F2 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		34F0FF692FB9C6780003F6F2 /* ExperienceLevelPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceLevelPicker.swift; sourceTree = "<group>"; };
+		34F0FF752FBA05D30003F6F2 /* RoutinePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				345D6DA22FB8AEEE003C72DA /* RiveRuntime in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -34,6 +49,11 @@
 			children = (
 				345D6D942FB8AE85003C72DA /* BubblesMascot */,
 				345D6D932FB8AE85003C72DA /* Products */,
+				34F0FF632FB9B5090003F6F2 /* RaisedButton.swift */,
+				34F0FF652FB9B50A0003F6F2 /* SpeechBubble.swift */,
+				34F0FF672FB9B50B0003F6F2 /* ProgressBar.swift */,
+				34F0FF692FB9C6780003F6F2 /* ExperienceLevelPicker.swift */,
+				34F0FF752FBA05D30003F6F2 /* RoutinePicker.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,6 +85,7 @@
 			);
 			name = BubblesMascot;
 			packageProductDependencies = (
+				345D6DA12FB8AEEE003C72DA /* RiveRuntime */,
 			);
 			productName = BubblesMascot;
 			productReference = 345D6D922FB8AE85003C72DA /* BubblesMascot.app */;
@@ -94,6 +115,9 @@
 			);
 			mainGroup = 345D6D892FB8AE85003C72DA;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				345D6DA02FB8AEEE003C72DA /* XCRemoteSwiftPackageReference "rive-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 345D6D932FB8AE85003C72DA /* Products */;
 			projectDirPath = "";
@@ -119,6 +143,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34F0FF762FBA05D30003F6F2 /* RoutinePicker.swift in Sources */,
+				34F0FF662FB9B50A0003F6F2 /* SpeechBubble.swift in Sources */,
+				34F0FF6A2FB9C6780003F6F2 /* ExperienceLevelPicker.swift in Sources */,
+				34F0FF642FB9B5090003F6F2 /* RaisedButton.swift in Sources */,
+				34F0FF682FB9B50B0003F6F2 /* ProgressBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +361,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		345D6DA02FB8AEEE003C72DA /* XCRemoteSwiftPackageReference "rive-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rive-app/rive-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.20.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		345D6DA12FB8AEEE003C72DA /* RiveRuntime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 345D6DA02FB8AEEE003C72DA /* XCRemoteSwiftPackageReference "rive-ios" */;
+			productName = RiveRuntime;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 345D6D8A2FB8AE85003C72DA /* Project object */;
 }
