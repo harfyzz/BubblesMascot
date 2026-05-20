@@ -16,7 +16,10 @@ struct ContentView: View {
     @State var mascot = RiveViewModel(fileName: "mascot_2", stateMachineName: "Main")
     @State var dataBindingInstance: RiveDataBindingViewModel.Instance?
     @State var background = RiveViewModel(fileName: "background", stateMachineName: "Main")
+    @State var animText = RiveViewModel(fileName: "animtext2", stateMachineName: "Main")
     @State var bgDataBindingInstance: RiveDataBindingViewModel.Instance?
+    @State var animTextDataBindingInstance: RiveDataBindingViewModel.Instance?
+    @State var showSubText = false
     @State var isSpeechBubbleText = "Hello"
     @State var screenState: ScreenState = .idle1
     @State var selectedExperience: ExperienceLevel?
@@ -80,7 +83,7 @@ struct ContentView: View {
                     .padding(.bottom, -48)
             }
             
-            HStack {
+                HStack {
                 mascot.view()
                     .frame(maxWidth: mascotWidth)
                   //  .background(.gray)
@@ -95,19 +98,25 @@ struct ContentView: View {
                 }
             }
             .frame(height: isQuestionState ? 200 : deviceWidth)
-           
+            .padding(.top, isQuestionState ? -32 : 0)
+            
             
             if showCompleteText {
-                VStack (spacing:8){
-                    Text("You're on your way!")
+                VStack (spacing:0){
+                 /*   Text("You're on your way!")
                         .font(.title)
                         .fontWeight(.semibold)
-                        .foregroundStyle(Color("gray700"))
-                    Text("Bubbles keeps you on track with lessons puzzles and daily motivation designed just for you!")
-                        .multilineTextAlignment(.center)
-                        .font(.body)
-                        .fontWeight(.medium)
-                        .foregroundStyle(Color("gray500"))
+                        .foregroundStyle(Color("gray700")) */
+                    animText.view()
+                        .frame(height: 65)
+                    if showSubText {
+                        Text("Bubbles keeps you on track with lessons puzzles and daily motivation designed just for you!")
+                            .multilineTextAlignment(.center)
+                            .font(.body)
+                            .fontWeight(.medium)
+                            .foregroundStyle(Color("gray500"))
+                            .transition(.opacity)
+                    }
                         
                 }
                 .transition(.opacity)
@@ -138,6 +147,7 @@ struct ContentView: View {
         .onAppear {
             setupBind()
             setupBackgroundBind()
+            setupAnimTextBind()
             listenForTransition()
             setMascotState(.idle)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -165,11 +175,13 @@ struct ContentView: View {
         case .idle1:
             SpeechBubble(text: "Hi there! I'm Bubbles!", direction: .down)
         case .idle2:
-            SpeechBubble(text: "Just a couple questions to build a lesson path for you.", direction: .down)
+            if !isTransitioning {
+                SpeechBubble(text: "Just a couple questions to build a lesson path for you.", direction: .down)
+            }
         case .question1:
             SpeechBubble(text: "What's your programming comfort level?", direction: .left)
         case .question2:
-            SpeechBubble(text: "Nice! So, how will learning fit into your day?", direction: .down)
+            SpeechBubble(text: "Nice! So, how will learning fit into your day?", direction: .left)
         case .complete:
             EmptyView()
         }
@@ -198,6 +210,7 @@ struct ContentView: View {
         case .question2:
             RaisedButton("Finish", isDisabled: selectedRoutine == nil) {
                 showCompleteText = false
+                showSubText = false
                 showBackground = true
                 bgDataBindingInstance?.booleanProperty(fromPath: "isRunning")?.value = true
                 background.triggerInput("advance")
@@ -211,6 +224,7 @@ struct ContentView: View {
                     selectedExperience = nil
                     selectedRoutine = nil
                     showCompleteText = false
+                    showSubText = false
                     showBackground = false
                     isTransitioning = false
                 }
@@ -233,6 +247,20 @@ struct ContentView: View {
         let stateEnum = dataBindingInstance!.enumProperty(fromPath: "state")!
         stateEnum.addListener { value in
             print("Rive state: \(value)")
+        }
+    }
+    
+    func setupAnimTextBind() {
+        let vm = animText.riveModel?.riveFile.viewModelNamed("MainVm")
+        animTextDataBindingInstance = vm!.createInstance(fromName: "Instance")
+        animText.riveModel?.stateMachine?.bind(viewModelInstance: animTextDataBindingInstance!)
+        animText.triggerInput("advance")
+        
+        let loopEnd = animTextDataBindingInstance!.triggerProperty(fromPath: "loopEnd")!
+        loopEnd.addListener {
+            withAnimation {
+                showSubText = true
+            }
         }
     }
     
@@ -270,6 +298,8 @@ struct ContentView: View {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     showCompleteText = true
                 }
+                animTextDataBindingInstance?.triggerProperty(fromPath: "play")?.trigger()
+                animText.triggerInput("advance")
                 bgDataBindingInstance?.booleanProperty(fromPath: "isRunning")?.value = false
                 background.triggerInput("advance")
             default:
